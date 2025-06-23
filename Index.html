@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicação e Saúde dos Povos Yanomami e Ye’kwana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #073B4C; 
+        }
+        .header-bg {
+            background-color: #073B4C;
+            color: white;
+        }
+        .section-title {
+            color: #118AB2;
+            border-bottom: 3px solid #FFD166;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .card-bg {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease-in-out;
+        }
+        .card-bg:hover:not(.stakeholder-card) {
+            transform: translateY(-5px);
+        }
+        .highlight-text {
+            color: #FF6B6B;
+            font-weight: 700;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: #073B4C;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            pointer-events: none;
+            max-width: 280px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: translateY(10px);
+        }
+        .tooltip-trigger {
+            cursor: help;
+            border-bottom: 2px dotted #118AB2;
+            font-weight: 600;
+        }
+        .tooltip-trigger:hover + .tooltip, .tooltip-trigger:focus + .tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FF6B6B;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #4A5568;
+            margin-top: 0.25rem;
+        }
+        .eixo-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px -4px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            border-left-width: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+        .eixo-card-1 { border-color: #118AB2; }
+        .eixo-card-2 { border-color: #06D6A0; }
+        .eixo-card-3 { border-color: #FFD166; }
+        .eixo-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .eixo-card-1 .eixo-icon { color: #118AB2; }
+        .eixo-card-2 .eixo-icon { color: #06D6A0; }
+        .eixo-card-3 .eixo-icon { color: #FFD166; }
+        
+        /* Stakeholder Accordion Styles */
+        .stakeholder-card {
+            cursor: pointer;
+            overflow: hidden; /* Important for max-height transition */
+        }
+        .stakeholder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .stakeholder-info {
+            display: flex;
+            align-items: center;
+        }
+        .stakeholder-icon {
+            font-size: 2.5rem; /* Slightly smaller for better fit */
+            margin-right: 1rem;
+            width: 40px;
+            text-align: center;
+        }
+        .expand-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1rem;
+            color: #9ca3af;
+        }
+        .stakeholder-card.expanded .expand-arrow {
+            transform: rotate(180deg);
+        }
+        .stakeholder-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out, margin 0.4s ease-in-out;
+            padding-top: 0;
+            margin-top: 0;
+            border-top: 1px solid transparent;
+        }
+        .stakeholder-card.expanded .stakeholder-details {
+            max-height: 200px; /* Adjust as needed */
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top-color: #e5e7eb;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="text-gray-800">
+
+    <header class="header-bg text-white p-6 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">Comunicação interétnica e intercultural no atendimento à saúde dos Povos Yanomami e Ye’kwana</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="apresentacao" class="mb-12 card-bg p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold section-title mb-4">Apresentação</h2>
+            <p class="text-lg leading-relaxed">
+                Este plano visa fortalecer a saúde dos povos <span class="tooltip-trigger" data-tooltip-text="Povos indígenas que habitam a maior Terra Indígena do Brasil, rica em diversidade cultural e linguística.">Yanomami e Ye'kwana</span>, focando em <span class="tooltip-trigger" data-tooltip-text="Capacitação de profissionais para atuar de forma culturalmente sensível e com conhecimento das línguas locais.">capacitação profissional</span> e <span class="tooltip-trigger" data-tooltip-text="Integração dos conhecimentos tradicionais indígenas com a medicina ocidental para um cuidado mais holístico.">integração de saberes</span>. Baseia-se em suas prioridades (<span class="tooltip-trigger" data-tooltip-text="Plano de Gestão Territorial e Ambiental da Terra Indígena Yanomami.">PGTA</span> e <span class="tooltip-trigger" data-tooltip-text="Protocolo Autônomo de Consulta Prévia Livre e Informada Yanomami e Ye'kwana.">Protocolo de Consulta</span>) e propostas ministeriais, com uma abordagem <span class="tooltip-trigger" data-tooltip-text="Colaboração entre diferentes setores e órgãos governamentais.">intersetorial</span>.
+            </p>
+            <div class="mt-4 text-sm">
+                <p><span class="font-semibold">Contexto:</span> Envolve Ministérios (Saúde, Povos Indígenas, etc.), <span class="tooltip-trigger" data-tooltip-text="Fundação Nacional dos Povos Indígenas.">FUNAI</span>, <span class="tooltip-trigger" data-tooltip-text="Distrito Sanitário Especial Indígena Yanomami e Ye'kwana.">DSEI-YY</span>, Associações Indígenas (HAY, SEDUUME, AYRCA), <span class="tooltip-trigger" data-tooltip-text="Instituto Socioambiental.">ISA</span>, Universidades e <span class="tooltip-trigger" data-tooltip-text="Ministério Público Federal.">MPF</span>.</p>
+                <p><span class="font-semibold">Localidade:</span> Terra Indígena Yanomami (Roraima e Amazonas).</p>
+            </div>
+        </section>
+
+        <section id="introducao" class="mb-12 card-bg p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold section-title mb-4">Desafios e Contexto</h2>
+            <div class="grid md:grid-cols-2 gap-6 items-start">
+                <div>
+                    <p class="text-lg leading-relaxed">
+                        A <span class="tooltip-trigger" data-tooltip-text="Maior reserva indígena do Brasil, com vasta biodiversidade e diversidade cultural.">Terra Indígena Yanomami</span> enfrenta uma <span class="highlight-text">crise humanitária</span>, agravada pelo <span class="tooltip-trigger" data-tooltip-text="Atividade ilegal que causa desmatamento, poluição e violência.">garimpo ilegal</span>. Isso impacta diretamente a saúde e o modo de vida dos povos Yanomami e Ye'kwana.
+                    </p>
+                    <p class="text-lg leading-relaxed mt-4">
+                        A <span class="highlight-text">problemática central</span> é a dificuldade na efetivação da promoção da saúde indígena, devido a:
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li>Barreiras de comunicação (<span class="tooltip-trigger" data-tooltip-text="Existem múltiplas línguas como Yanomam, Yanomamɨ, Sanima, Ninam, Yãnoma.">diversidade linguística</span>).</li>
+                        <li>Necessidade de <span class="tooltip-trigger" data-tooltip-text="Profissionais com entendimento das culturas e línguas locais.">capacitação profissional específica</span>.</li>
+                        <li>Histórico de desconfiança e falta de <span class="tooltip-trigger" data-tooltip-text="Diálogo que considera e respeita as diferentes visões de mundo, valores e práticas culturais.">diálogo intercultural</span>.</li>
+                    </ul>
+                </div>
+                <div class="text-center space-y-4">
+                    <div class="bg-red-100 p-4 rounded-lg">
+                        <p class="stat-number">9,6M ha</p>
+                        <p class="stat-label">Maior TI do Brasil</p>
+                    </div>
+                    <div class="bg-yellow-100 p-4 rounded-lg">
+                        <p class="stat-number">5+</p>
+                        <p class="stat-label">Línguas Principais</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-lg leading-relaxed mt-6">
+                O <span class="tooltip-trigger" data-tooltip-text="Plano de Gestão Territorial e Ambiental: guia indígena para o 'Bem Viver'.">PGTA</span> e o <span class="tooltip-trigger" data-tooltip-text="Protocolo de Consulta: define como os povos devem ser consultados.">Protocolo de Consulta</span> são ferramentas <span class="highlight-text">essenciais</span> criadas pelos próprios povos para orientar ações e garantir seus direitos.
+            </p>
+        </section>
+
+        <section id="objetivos" class="mb-12 card-bg p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold section-title mb-6 text-center">Objetivos do Plano</h2>
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-blue-600 mb-2 text-center">Objetivo Geral</h3>
+                <p class="text-lg leading-relaxed text-center">
+                    Promover a <span class="highlight-text">saúde integral</span> dos povos Yanomami e Ye'kwana, fortalecendo seu <span class="tooltip-trigger" data-tooltip-text="Capacidade de tomar decisões sobre seus próprios assuntos.">protagonismo</span> e respeitando seus instrumentos de gestão (<span class="tooltip-trigger" data-tooltip-text="Plano de Gestão Territorial e Ambiental.">PGTA</span>) e consulta (<span class="tooltip-trigger" data-tooltip-text="Protocolo de Consulta Yanomami e Ye'kwana.">Protocolo</span>).
+                </p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-blue-600 mb-4 text-center">Objetivos Específicos</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 columns-1 md:columns-2">
+                    <li>Capacitar profissionais em <span class="tooltip-trigger" data-tooltip-text="Habilidades para trabalhar efetivamente em contextos com diversas culturas.">competências interculturais</span>.</li>
+                    <li>Promover formação linguística em línguas Yanomami.</li>
+                    <li>Formar <span class="tooltip-trigger" data-tooltip-text="Membros da comunidade treinados para documentar seus próprios conhecimentos.">pesquisadores indígenas</span> para saberes medicinais.</li>
+                    <li>Realizar oficinas intergeracionais de saberes.</li>
+                    <li>Formar intérpretes e tradutores indígenas para a saúde.</li>
+                    <li>Elaborar materiais de saúde <span class="tooltip-trigger" data-tooltip-text="Disponíveis nas línguas indígenas e em português.">bilíngues/multilíngues</span>.</li>
+                    <li>Fortalecer a <span class="tooltip-trigger" data-tooltip-text="Colaboração entre diferentes ministérios e órgãos.">articulação intersetorial</span>.</li>
+                    <li>Alinhar ações com o PGTA Yanomami.</li>
+                    <li>Assegurar a <span class="tooltip-trigger" data-tooltip-text="Processo de consulta que deve ser livre de coerção, prévio a qualquer decisão e baseado em informação completa.">consulta livre, prévia e informada</span>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="eixos" class="mb-12">
+            <h2 class="text-3xl font-semibold section-title mb-8 text-center">Eixos Norteadores das Ações</h2>
+            <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="eixo-card eixo-card-1">
+                    <div class="eixo-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <h3 class="text-2xl font-bold mb-3">Eixo 1: Capacitação e Formação</h3>
+                    <p class="text-gray-700 mb-4 flex-grow">Preparar profissionais e formar quadros indígenas para superar barreiras culturais e linguísticas, focando em <span class="tooltip-trigger" data-tooltip-text="Desenvolvimento de habilidades para comunicação e atuação eficaz em contextos de diversidade cultural.">competências interculturais</span>.</p>
+                    <p class="font-semibold mb-2 text-gray-800">Ações Chave:</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm text-gray-600">
+                        <li>Desenvolver <span class="tooltip-trigger" data-tooltip-text="Planos de ensino que integram diferentes perspectivas culturais e saberes.">currículos interculturais</span>.</li>
+                        <li>Oferecer cursos de línguas Yanomami.</li>
+                        <li>Implementar programa de formação de intérpretes indígenas.</li>
+                        <li>Produzir materiais de saúde <span class="tooltip-trigger" data-tooltip-text="Conteúdos em português e nas línguas indígenas.">bilíngues</span> e audiovisuais.</li>
+                    </ul>
+                </div>
+
+                <div class="eixo-card eixo-card-2">
+                    <div class="eixo-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <h3 class="text-2xl font-bold mb-3">Eixo 2: Valorização de Saberes</h3>
+                    <p class="text-gray-700 mb-4 flex-grow">Reconhecer e integrar os <span class="tooltip-trigger" data-tooltip-text="Conhecimentos e práticas de cura passados entre gerações, como o uso de plantas medicinais.">conhecimentos tradicionais</span> sobre saúde, promovendo o diálogo com a <span class="tooltip-trigger" data-tooltip-text="Modelo de medicina ocidental, baseado em evidências científicas e biológicas.">biomedicina</span>.</p>
+                    <p class="font-semibold mb-2 text-gray-800">Ações Chave:</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm text-gray-600">
+                        <li>Apoiar a formação de pesquisadores indígenas.</li>
+                        <li>Organizar oficinas intergeracionais de saberes de cura.</li>
+                        <li>Promover diálogo entre <span class="tooltip-trigger" data-tooltip-text="Líderes espirituais e curandeiros indígenas.">pajés</span> e profissionais de saúde.</li>
+                        <li>Realizar registro respeitoso de saberes.</li>
+                    </ul>
+                </div>
+
+                <div class="eixo-card eixo-card-3">
+                    <div class="eixo-icon"><i class="fa-solid fa-sitemap"></i></div>
+                    <h3 class="text-2xl font-bold mb-3">Eixo 3: Articulação e Governança</h3>
+                    <p class="text-gray-700 mb-4 flex-grow">Coordenar atores e garantir o <span class="tooltip-trigger" data-tooltip-text="Liderança e poder de decisão das comunidades indígenas sobre seus próprios projetos e futuro.">protagonismo indígena</span> nas decisões, aplicando o Protocolo de Consulta e alinhando as ações com o PGTA.</p>
+                    <p class="font-semibold mb-2 text-gray-800">Ações Chave:</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm text-gray-600">
+                        <li>Criar <span class="tooltip-trigger" data-tooltip-text="Grupo de trabalho com representantes de vários ministérios e participação indígena para gerir o plano.">comitê gestor interministerial</span>.</li>
+                        <li>Realizar reuniões periódicas com associações indígenas.</li>
+                        <li>Garantir a realização de consultas formais.</li>
+                        <li>Apoiar o fortalecimento das associações indígenas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="stakeholders" class="mb-12">
+            <h2 class="text-3xl font-semibold section-title mb-8 text-center">A Rede de Colaboração</h2>
+            <p class="text-lg leading-relaxed text-center mb-6">
+                O sucesso deste plano depende da colaboração efetiva entre diversos atores. Clique em cada ator para ver suas ações.
+            </p>
+            <div class="space-y-4">
+                <div class="stakeholder-card card-bg p-4 rounded-lg">
+                    <div class="stakeholder-header">
+                        <div class="stakeholder-info">
+                            <span class="stakeholder-icon" role="img" aria-label="Governo">🏛️</span>
+                            <div>
+                                <h4 class="font-semibold text-left">Governo</h4>
+                                <p class="text-xs text-gray-500 text-left">MS, MPI, FUNAI, etc.</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-arrow"></i>
+                    </div>
+                    <div class="stakeholder-details">
+                        <p class="text-sm text-gray-700">Formula e executa políticas públicas, garante financiamento, presta serviços de saúde, e realiza a articulação entre os ministérios.</p>
+                    </div>
+                </div>
+                <div class="stakeholder-card card-bg p-4 rounded-lg">
+                    <div class="stakeholder-header">
+                        <div class="stakeholder-info">
+                           <span class="stakeholder-icon" role="img" aria-label="Comunidade">👨‍👩‍👧‍👦</span>
+                            <div>
+                               <h4 class="font-semibold text-left">Organizações Indígenas</h4>
+                               <p class="text-xs text-gray-500 text-left">HAY, SEDUUME, AYRCA</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-arrow"></i>
+                    </div>
+                     <div class="stakeholder-details">
+                        <p class="text-sm text-gray-700">Representam politicamente os povos, definem prioridades (PGTA, Protocolo), participam do planejamento e monitoramento, e exercem o controle social.</p>
+                    </div>
+                </div>
+                <div class="stakeholder-card card-bg p-4 rounded-lg">
+                    <div class="stakeholder-header">
+                        <div class="stakeholder-info">
+                            <span class="stakeholder-icon" role="img" aria-label="Apoio">🤝</span>
+                            <div>
+                               <h4 class="font-semibold text-left">Organizações de Apoio</h4>
+                               <p class="text-xs text-gray-500 text-left">ISA, <span class="tooltip-trigger" data-tooltip-text="Organização Pan-Americana da Saúde / Organização Mundial da Saúde.">OPAS/OMS</span></p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-arrow"></i>
+                    </div>
+                    <div class="stakeholder-details">
+                        <p class="text-sm text-gray-700">Fornecem assessoria técnica e jurídica, desenvolvem pesquisas e metodologias participativas, apoiam a formação e realizam monitoramento independente.</p>
+                    </div>
+                </div>
+                <div class="stakeholder-card card-bg p-4 rounded-lg">
+                    <div class="stakeholder-header">
+                        <div class="stakeholder-info">
+                             <span class="stakeholder-icon" role="img" aria-label="Educação">🎓</span>
+                             <div>
+                               <h4 class="font-semibold text-left">Universidades</h4>
+                               <p class="text-xs text-gray-500 text-left">UFRR, UnB</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-arrow"></i>
+                    </div>
+                    <div class="stakeholder-details">
+                        <p class="text-sm text-gray-700">Contribuem com pesquisa, desenvolvimento de metodologias, formação de profissionais e apoio técnico-científico para as ações do plano.</p>
+                    </div>
+                </div>
+                <div class="stakeholder-card card-bg p-4 rounded-lg">
+                     <div class="stakeholder-header">
+                        <div class="stakeholder-info">
+                            <span class="stakeholder-icon" role="img" aria-label="Justiça">⚖️</span>
+                            <div>
+                               <h4 class="font-semibold text-left">Órgãos de Controle</h4>
+                               <p class="text-xs text-gray-500 text-left">MPF</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-arrow"></i>
+                    </div>
+                    <div class="stakeholder-details">
+                        <p class="text-sm text-gray-700">Monitoram o cumprimento do plano e das leis, apuram irregularidades, garantem a aplicação do Protocolo de Consulta e defendem os direitos à saúde e ao território.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="resultados" class="mb-12 card-bg p-6 rounded-lg shadow-md">
+            <h2 class="text-3xl font-semibold section-title mb-6 text-center">Resultados Esperados</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
+                <div class="p-4">
+                    <span class="text-5xl text-green-500" role="img" aria-label="Saúde Melhorada">❤️</span>
+                    <h4 class="font-semibold mt-2 text-lg">Saúde Melhorada</h4>
+                    <p class="text-sm text-gray-600">Acesso qualificado e redução de doenças.</p>
+                </div>
+                <div class="p-4">
+                    <span class="text-5xl text-blue-500" role="img" aria-label="Comunicação">🗣️</span>
+                    <h4 class="font-semibold mt-2 text-lg">Comunicação Efetiva</h4>
+                    <p class="text-sm text-gray-600">Superação de barreiras linguísticas.</p>
+                </div>
+                <div class="p-4">
+                    <span class="text-5xl text-yellow-500" role="img" aria-label="Sabedoria">🌿</span>
+                    <h4 class="font-semibold mt-2 text-lg">Saberes Valorizados</h4>
+                    <p class="text-sm text-gray-600">Integração de conhecimentos tradicionais.</p>
+                </div>
+                <div class="p-4">
+                    <span class="text-5xl text-purple-500" role="img" aria-label="Protagonismo">✊</span>
+                    <h4 class="font-semibold mt-2 text-lg">Protagonismo Indígena</h4>
+                    <p class="text-sm text-gray-600">Autonomia e participação fortalecidas.</p>
+                </div>
+                <div class="p-4">
+                    <span class="text-5xl text-teal-500" role="img" aria-label="Articulação">🔗</span>
+                    <h4 class="font-semibold mt-2 text-lg">Articulação Fortalecida</h4>
+                    <p class="text-sm text-gray-600">Colaboração eficaz entre atores.</p>
+                </div>
+                <div class="p-4">
+                    <span class="text-5xl text-red-500" role="img" aria-label="Respeito">🤝</span>
+                    <h4 class="font-semibold mt-2 text-lg">Direitos Respeitados</h4>
+                    <p class="text-sm text-gray-600">Consulta prévia e alinhamento com PGTA.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="orcamento-avaliacao" class="mb-12 card-bg p-6 rounded-lg shadow-md">
+            <h2 class="text-3xl font-semibold section-title mb-6 text-center">Orçamento e Avaliação</h2>
+            
+            <div class="mb-8">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Orçamento Total Estimado: <span class="highlight-text">R$ 985.000,00</span></h3>
+                <div class="space-y-6">
+                    <div class="border border-blue-200 rounded-lg p-4">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-lg font-bold text-blue-800">Eixo 1: Capacitação e Formação</h4>
+                            <p class="text-xl font-semibold text-blue-900">R$ 525.000,00</p>
+                        </div>
+                        <ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
+                            <li>Desenvolvimento de currículos e materiais didáticos interculturais.</li>
+                            <li>Oferta de cursos intensivos de línguas Yanomami para profissionais de saúde.</li>
+                            <li>Criação de programa para formação de intérpretes/tradutores indígenas.</li>
+                            <li>Produção de materiais informativos de saúde bilíngues/multilíngues e audiovisuais.</li>
+                            <li>Realização de workshops sobre sensibilidade cultural e combate à discriminação.</li>
+                        </ul>
+                    </div>
+                    <div class="border border-green-200 rounded-lg p-4">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-lg font-bold text-green-800">Eixo 2: Valorização de Saberes</h4>
+                            <p class="text-xl font-semibold text-green-900">R$ 300.000,00</p>
+                        </div>
+                        <ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
+                            <li>Apoio à formação de pesquisadores indígenas para inventariar saberes medicinais.</li>
+                            <li>Organização de oficinas intergeracionais para transmissão de conhecimentos de cura.</li>
+                            <li>Promoção do diálogo e intercâmbio entre pajés/curadores e profissionais de saúde.</li>
+                            <li>Elaboração de formas de registro e sistematização de saberes tradicionais.</li>
+                            <li>Discussão sobre a integração da medicina tradicional e biomedicina em planos de cuidado.</li>
+                        </ul>
+                    </div>
+                    <div class="border border-yellow-300 rounded-lg p-4">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-lg font-bold text-yellow-800">Eixo 3: Articulação e Governança</h4>
+                            <p class="text-xl font-semibold text-yellow-900">R$ 160.000,00</p>
+                        </div>
+                         <ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
+                            <li>Estabelecimento e operacionalização do comitê gestor interministerial.</li>
+                            <li>Garantia da realização de consultas formais (seguindo o Protocolo Yanomami e Ye'kwana).</li>
+                            <li>Apoio ao fortalecimento institucional das associações indígenas (gestão, comunicação).</li>
+                        </ul>
+                    </div>
+                </div>
+                 <p class="text-center text-gray-600 text-sm mt-4">(+ <span class="tooltip-trigger" data-tooltip-text="Valor reservado para cobrir despesas imprevistas, flutuações de preços ou necessidades não detalhadas.">Contingência</span>)</p>
+            </div>
+
+            <div>
+                 <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Monitoramento</h3>
+                <p class="text-lg leading-relaxed mb-4">
+                    O acompanhamento será contínuo e participativo para assegurar a efetividade das ações e o respeito ao protagonismo indígena. Os principais métodos incluem:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li><span class="font-semibold">Acompanhamento Periódico:</span> Reuniões regulares do <span class="tooltip-trigger" data-tooltip-text="Grupo com representantes de vários ministérios e das comunidades indígenas para gerir o plano.">comitê gestor</span> para discutir progressos e desafios.</li>
+                    <li><span class="font-semibold">Uso de Indicadores:</span> Métricas <span class="tooltip-trigger" data-tooltip-text="Dados numéricos, como nº de profissionais capacitados.">quantitativas</span> e <span class="tooltip-trigger" data-tooltip-text="Avaliações de percepção, como a satisfação da comunidade com o atendimento.">qualitativas</span> para medir o alcance dos objetivos.</li>
+                    <li><span class="font-semibold">Verificação do Protocolo:</span> Avaliação sistemática do respeito aos procedimentos de <span class="tooltip-trigger" data-tooltip-text="Garantia de que as comunidades sejam consultadas de forma livre, prévia e informada antes de qualquer ação.">consulta prévia</span>.</li>
+                    <li><span class="font-semibold">Monitoramento Participativo:</span> Envolvimento ativo das <span class="tooltip-trigger" data-tooltip-text="Organizações como a Hutukara Associação Yanomami (HAY) e a Associação Wanasseduume Ye'kwana (SEDUUME).">organizações indígenas</span> em todo o processo de avaliação.</li>
+                    <li><span class="font-semibold">Documentação e Relatórios:</span> Registros detalhados das atividades e elaboração de relatórios periódicos de progresso.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-12">
+        <p>&copy; 2025 Plano de Ação Intersetorial.</p>
+    </footer>
+
+    <!-- Tooltip Element -->
+    <div id="tooltip" class="tooltip hidden"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tooltip functionality
+            const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+            const tooltipElement = document.getElementById('tooltip');
+            if (tooltipElement) {
+                tooltipTriggers.forEach(trigger => {
+                    trigger.addEventListener('mouseenter', function (event) {
+                        tooltipElement.innerHTML = this.dataset.tooltipText;
+                        tooltipElement.style.left = `${event.pageX}px`;
+                        tooltipElement.style.top = `${event.pageY + 20}px`;
+                        tooltipElement.classList.remove('hidden');
+                        const tooltipRect = tooltipElement.getBoundingClientRect();
+                        if (tooltipRect.right > window.innerWidth) {
+                           tooltipElement.style.left = `${window.innerWidth - tooltipRect.width - 20}px`;
+                        }
+                        if (tooltipRect.left < 0) {
+                            tooltipElement.style.left = '20px';
+                        }
+                        tooltipElement.style.opacity = 1;
+                        tooltipElement.style.transform = 'translateY(0)';
+                    });
+                    trigger.addEventListener('mouseleave', function () {
+                        tooltipElement.style.opacity = 0;
+                        tooltipElement.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            if (tooltipElement.style.opacity === '0') {
+                                 tooltipElement.classList.add('hidden');
+                            }
+                        }, 200);
+                    });
+                    trigger.addEventListener('mousemove', function(event) {
+                        let x = event.pageX;
+                        let y = event.pageY + 20;
+                        tooltipElement.style.left = `${x}px`;
+                        tooltipElement.style.top = `${y}px`;
+                        const tooltipRect = tooltipElement.getBoundingClientRect();
+                        if (tooltipRect.right > window.innerWidth) {
+                           tooltipElement.style.left = `${window.innerWidth - tooltipRect.width - 20}px`;
+                        }
+                        if (tooltipRect.left < 0) {
+                            tooltipElement.style.left = '20px';
+                        }
+                    });
+                });
+            }
+
+            // Accordion functionality for Stakeholders
+            const stakeholderCards = document.querySelectorAll('.stakeholder-card');
+            stakeholderCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Close other open cards
+                    stakeholderCards.forEach(otherCard => {
+                        if (otherCard !== this && otherCard.classList.contains('expanded')) {
+                            otherCard.classList.remove('expanded');
+                        }
+                    });
+                    // Toggle the clicked card
+                    this.classList.toggle('expanded');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
