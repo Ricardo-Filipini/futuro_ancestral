@@ -28,7 +28,7 @@
             box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.07);
             transition: all 0.3s ease-in-out;
         }
-        .card-bg:hover:not(.stakeholder-card) {
+        .card-bg:hover {
             transform: translateY(-5px);
         }
         .highlight-text {
@@ -89,50 +89,76 @@
         .eixo-card-1 .eixo-icon { color: #118AB2; }
         .eixo-card-2 .eixo-icon { color: #06D6A0; }
         .eixo-card-3 .eixo-icon { color: #FFD166; }
-        
-        /* Stakeholder Accordion Styles */
-        .stakeholder-card {
-            cursor: pointer;
-            overflow: hidden; /* Important for max-height transition */
-        }
-        .stakeholder-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+
+        /* Network Diagram Styles */
+        .network-container {
+            position: relative;
             width: 100%;
+            max-width: 600px;
+            height: 500px;
+            margin: 2rem auto;
         }
-        .stakeholder-info {
+        .network-node {
+            position: absolute;
             display: flex;
+            flex-direction: column;
             align-items: center;
-        }
-        .stakeholder-icon {
-            font-size: 2.5rem; /* Slightly smaller for better fit */
-            margin-right: 1rem;
-            width: 40px;
+            justify-content: center;
+            background-color: #FFD166;
+            color: #073B4C;
+            border-radius: 50%;
+            padding: 1rem;
             text-align: center;
-        }
-        .expand-arrow {
             transition: transform 0.3s ease;
-            font-size: 1rem;
-            color: #9ca3af;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .stakeholder-card.expanded .expand-arrow {
-            transform: rotate(180deg);
+        .network-node:hover {
+            transform: scale(1.1);
+            z-index: 10;
         }
-        .stakeholder-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out, margin 0.4s ease-in-out;
-            padding-top: 0;
-            margin-top: 0;
-            border-top: 1px solid transparent;
+        .node-central {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FF6B6B;
+            color: white;
+            z-index: 5;
         }
-        .stakeholder-card.expanded .stakeholder-details {
-            max-height: 200px; /* Adjust as needed */
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top-color: #e5e7eb;
+        .node-peripheral {
+            width: 110px;
+            height: 110px;
         }
+        .node-1 { top: 0%; left: 50%; transform: translateX(-50%); }
+        .node-2 { top: 25%; left: 95%; transform: translate(-50%, -50%); }
+        .node-3 { top: 75%; left: 95%; transform: translate(-50%, -50%); }
+        .node-4 { top: 100%; left: 50%; transform: translate(-50%, -100%); }
+        .node-5 { top: 75%; left: 5%; transform: translate(-50%, -50%); }
+        .node-6 { top: 25%; left: 5%; transform: translate(-50%, -50%); }
+        .node-label {
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        .network-line {
+            position: absolute;
+            background-color: #118AB2;
+            height: 3px;
+            transform-origin: left;
+            opacity: 0.3;
+            z-index: 1;
+        }
+        @media (max-width: 768px) {
+            .network-container {
+                height: 450px;
+                max-width: 100%;
+            }
+            .node-central { width: 120px; height: 120px; }
+            .node-peripheral { width: 90px; height: 90px; }
+            .node-label { font-size: 0.7rem; }
+        }
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -187,6 +213,24 @@
             <p class="text-lg leading-relaxed mt-6">
                 O <span class="tooltip-trigger" data-tooltip-text="Plano de Gestão Territorial e Ambiental: guia indígena para o 'Bem Viver'.">PGTA</span> e o <span class="tooltip-trigger" data-tooltip-text="Protocolo de Consulta: define como os povos devem ser consultados.">Protocolo de Consulta</span> são ferramentas <span class="highlight-text">essenciais</span> criadas pelos próprios povos para orientar ações e garantir seus direitos.
             </p>
+        </section>
+        
+        <section id="principios" class="mb-12 card-bg p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold section-title mb-4">Princípios Éticos: Combate ao Racismo e Proteção de Saberes</h2>
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                 <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Enfrentamento à Discriminação</h3>
+                    <p class="text-lg leading-relaxed">
+                        É fundamental <span class="highlight-text">mitigar práticas discriminatórias</span> no atendimento. A capacitação profissional deve incluir módulos sobre sensibilidade cultural e o combate ao racismo estrutural, reconhecendo que a desconfiança histórica muitas vezes se baseia em experiências de desrespeito e violência. Ações de saúde não podem reproduzir preconceitos entre diferentes etnias ou contra os próprios indígenas.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Proteção do Conhecimento</h3>
+                    <p class="text-lg leading-relaxed">
+                        A valorização dos saberes tradicionais exige um cuidado rigoroso com a <span class="tooltip-trigger" data-tooltip-text="Direito coletivo dos povos sobre seus conhecimentos, inovações e práticas.">propriedade intelectual coletiva</span> e o <span class="tooltip-trigger" data-tooltip-text="Material genético de origem vegetal, animal ou microbiano que contém unidades funcionais de hereditariedade.">patrimônio genético</span>. Qualquer registro ou pesquisa deve ser feito com o <span class="highlight-text">consentimento livre, prévio e informado</span> das comunidades, garantindo que elas sejam as protagonistas e principais beneficiárias da gestão de seus próprios conhecimentos.
+                    </p>
+                </div>
+            </div>
         </section>
 
         <section id="objetivos" class="mb-12 card-bg p-6 rounded-lg shadow-md">
@@ -260,82 +304,35 @@
         <section id="stakeholders" class="mb-12">
             <h2 class="text-3xl font-semibold section-title mb-8 text-center">A Rede de Colaboração</h2>
             <p class="text-lg leading-relaxed text-center mb-6">
-                O sucesso deste plano depende da colaboração efetiva entre diversos atores. Clique em cada ator para ver suas ações.
+                O sucesso do plano depende da articulação sinérgica entre os diversos atores. Passe o mouse sobre cada um para ver suas ações.
             </p>
-            <div class="space-y-4">
-                <div class="stakeholder-card card-bg p-4 rounded-lg">
-                    <div class="stakeholder-header">
-                        <div class="stakeholder-info">
-                            <span class="stakeholder-icon" role="img" aria-label="Governo">🏛️</span>
-                            <div>
-                                <h4 class="font-semibold text-left">Governo</h4>
-                                <p class="text-xs text-gray-500 text-left">MS, MPI, FUNAI, etc.</p>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-down expand-arrow"></i>
-                    </div>
-                    <div class="stakeholder-details">
-                        <p class="text-sm text-gray-700">Formula e executa políticas públicas, garante financiamento, presta serviços de saúde, e realiza a articulação entre os ministérios.</p>
-                    </div>
+            <div class="network-container">
+                <!-- Lines connecting nodes -->
+                <div id="lines"></div>
+
+                <!-- Central Node -->
+                <div class="network-node node-central tooltip-trigger" data-tooltip-text="Protagonistas: Representam politicamente os povos, definem prioridades, participam do planejamento e monitoramento, e exercem o controle social.">
+                    <span class="text-2xl" role="img" aria-label="Comunidade">👨‍👩‍👧‍👦</span>
+                    <span class="node-label">Organizações Indígenas</span>
                 </div>
-                <div class="stakeholder-card card-bg p-4 rounded-lg">
-                    <div class="stakeholder-header">
-                        <div class="stakeholder-info">
-                           <span class="stakeholder-icon" role="img" aria-label="Comunidade">👨‍👩‍👧‍👦</span>
-                            <div>
-                               <h4 class="font-semibold text-left">Organizações Indígenas</h4>
-                               <p class="text-xs text-gray-500 text-left">HAY, SEDUUME, AYRCA</p>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-down expand-arrow"></i>
+
+                <!-- Peripheral Nodes -->
+                <div id="nodes" class="relative w-full h-full">
+                    <div class="network-node node-peripheral node-1 tooltip-trigger" data-tooltip-text="Execução: Formula e executa políticas, garante financiamento, presta serviços de saúde e realiza a articulação interministerial.">
+                        <span class="text-2xl" role="img" aria-label="Governo">🏛️</span>
+                        <span class="node-label">Governo</span>
                     </div>
-                     <div class="stakeholder-details">
-                        <p class="text-sm text-gray-700">Representam politicamente os povos, definem prioridades (PGTA, Protocolo), participam do planejamento e monitoramento, e exercem o controle social.</p>
+                    <div class="network-node node-peripheral node-2 tooltip-trigger" data-tooltip-text="Assessoria: Fornecem apoio técnico e jurídico, desenvolvem pesquisas, apoiam a formação e realizam monitoramento independente.">
+                       <span class="text-2xl" role="img" aria-label="Apoio">🤝</span>
+                        <span class="node-label">Apoio (OSC)</span>
                     </div>
-                </div>
-                <div class="stakeholder-card card-bg p-4 rounded-lg">
-                    <div class="stakeholder-header">
-                        <div class="stakeholder-info">
-                            <span class="stakeholder-icon" role="img" aria-label="Apoio">🤝</span>
-                            <div>
-                               <h4 class="font-semibold text-left">Organizações de Apoio</h4>
-                               <p class="text-xs text-gray-500 text-left">ISA, <span class="tooltip-trigger" data-tooltip-text="Organização Pan-Americana da Saúde / Organização Mundial da Saúde.">OPAS/OMS</span></p>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-down expand-arrow"></i>
+                     <div class="network-node node-peripheral node-3 tooltip-trigger" data-tooltip-text="Conhecimento: Contribuem com pesquisa, formação de profissionais e apoio técnico-científico para as ações do plano.">
+                        <span class="text-2xl" role="img" aria-label="Educação">🎓</span>
+                        <span class="node-label">Universidades</span>
                     </div>
-                    <div class="stakeholder-details">
-                        <p class="text-sm text-gray-700">Fornecem assessoria técnica e jurídica, desenvolvem pesquisas e metodologias participativas, apoiam a formação e realizam monitoramento independente.</p>
-                    </div>
-                </div>
-                <div class="stakeholder-card card-bg p-4 rounded-lg">
-                    <div class="stakeholder-header">
-                        <div class="stakeholder-info">
-                             <span class="stakeholder-icon" role="img" aria-label="Educação">🎓</span>
-                             <div>
-                               <h4 class="font-semibold text-left">Universidades</h4>
-                               <p class="text-xs text-gray-500 text-left">UFRR, UnB</p>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-down expand-arrow"></i>
-                    </div>
-                    <div class="stakeholder-details">
-                        <p class="text-sm text-gray-700">Contribuem com pesquisa, desenvolvimento de metodologias, formação de profissionais e apoio técnico-científico para as ações do plano.</p>
-                    </div>
-                </div>
-                <div class="stakeholder-card card-bg p-4 rounded-lg">
-                     <div class="stakeholder-header">
-                        <div class="stakeholder-info">
-                            <span class="stakeholder-icon" role="img" aria-label="Justiça">⚖️</span>
-                            <div>
-                               <h4 class="font-semibold text-left">Órgãos de Controle</h4>
-                               <p class="text-xs text-gray-500 text-left">MPF</p>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-down expand-arrow"></i>
-                    </div>
-                    <div class="stakeholder-details">
-                        <p class="text-sm text-gray-700">Monitoram o cumprimento do plano e das leis, apuram irregularidades, garantem a aplicação do Protocolo de Consulta e defendem os direitos à saúde e ao território.</p>
+                     <div class="network-node node-peripheral node-4 tooltip-trigger" data-tooltip-text="Fiscalização: Monitoram o cumprimento das leis, apuram irregularidades e defendem os direitos à saúde e ao território.">
+                         <span class="text-2xl" role="img" aria-label="Justiça">⚖️</span>
+                        <span class="node-label">Controle</span>
                     </div>
                 </div>
             </div>
@@ -344,36 +341,12 @@
         <section id="resultados" class="mb-12 card-bg p-6 rounded-lg shadow-md">
             <h2 class="text-3xl font-semibold section-title mb-6 text-center">Resultados Esperados</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
-                <div class="p-4">
-                    <span class="text-5xl text-green-500" role="img" aria-label="Saúde Melhorada">❤️</span>
-                    <h4 class="font-semibold mt-2 text-lg">Saúde Melhorada</h4>
-                    <p class="text-sm text-gray-600">Acesso qualificado e redução de doenças.</p>
-                </div>
-                <div class="p-4">
-                    <span class="text-5xl text-blue-500" role="img" aria-label="Comunicação">🗣️</span>
-                    <h4 class="font-semibold mt-2 text-lg">Comunicação Efetiva</h4>
-                    <p class="text-sm text-gray-600">Superação de barreiras linguísticas.</p>
-                </div>
-                <div class="p-4">
-                    <span class="text-5xl text-yellow-500" role="img" aria-label="Sabedoria">🌿</span>
-                    <h4 class="font-semibold mt-2 text-lg">Saberes Valorizados</h4>
-                    <p class="text-sm text-gray-600">Integração de conhecimentos tradicionais.</p>
-                </div>
-                <div class="p-4">
-                    <span class="text-5xl text-purple-500" role="img" aria-label="Protagonismo">✊</span>
-                    <h4 class="font-semibold mt-2 text-lg">Protagonismo Indígena</h4>
-                    <p class="text-sm text-gray-600">Autonomia e participação fortalecidas.</p>
-                </div>
-                <div class="p-4">
-                    <span class="text-5xl text-teal-500" role="img" aria-label="Articulação">🔗</span>
-                    <h4 class="font-semibold mt-2 text-lg">Articulação Fortalecida</h4>
-                    <p class="text-sm text-gray-600">Colaboração eficaz entre atores.</p>
-                </div>
-                <div class="p-4">
-                    <span class="text-5xl text-red-500" role="img" aria-label="Respeito">🤝</span>
-                    <h4 class="font-semibold mt-2 text-lg">Direitos Respeitados</h4>
-                    <p class="text-sm text-gray-600">Consulta prévia e alinhamento com PGTA.</p>
-                </div>
+                <div class="p-4"><span class="text-5xl text-green-500">❤️</span><h4 class="font-semibold mt-2 text-lg">Saúde Melhorada</h4><p class="text-sm text-gray-600">Acesso qualificado e redução de doenças.</p></div>
+                <div class="p-4"><span class="text-5xl text-blue-500">🗣️</span><h4 class="font-semibold mt-2 text-lg">Comunicação Efetiva</h4><p class="text-sm text-gray-600">Superação de barreiras linguísticas.</p></div>
+                <div class="p-4"><span class="text-5xl text-yellow-500">🌿</span><h4 class="font-semibold mt-2 text-lg">Saberes Valorizados</h4><p class="text-sm text-gray-600">Integração de conhecimentos tradicionais.</p></div>
+                <div class="p-4"><span class="text-5xl text-purple-500">✊</span><h4 class="font-semibold mt-2 text-lg">Protagonismo Indígena</h4><p class="text-sm text-gray-600">Autonomia e participação fortalecidas.</p></div>
+                <div class="p-4"><span class="text-5xl text-teal-500">🔗</span><h4 class="font-semibold mt-2 text-lg">Articulação Fortalecida</h4><p class="text-sm text-gray-600">Colaboração eficaz entre atores.</p></div>
+                <div class="p-4"><span class="text-5xl text-red-500">🤝</span><h4 class="font-semibold mt-2 text-lg">Direitos Respeitados</h4><p class="text-sm text-gray-600">Consulta prévia e alinhamento com PGTA.</p></div>
             </div>
         </section>
 
@@ -383,52 +356,16 @@
             <div class="mb-8">
                 <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Orçamento Total Estimado: <span class="highlight-text">R$ 985.000,00</span></h3>
                 <div class="space-y-6">
-                    <div class="border border-blue-200 rounded-lg p-4">
-                        <div class="flex justify-between items-center">
-                            <h4 class="text-lg font-bold text-blue-800">Eixo 1: Capacitação e Formação</h4>
-                            <p class="text-xl font-semibold text-blue-900">R$ 525.000,00</p>
-                        </div>
-                        <ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
-                            <li>Desenvolvimento de currículos e materiais didáticos interculturais.</li>
-                            <li>Oferta de cursos intensivos de línguas Yanomami para profissionais de saúde.</li>
-                            <li>Criação de programa para formação de intérpretes/tradutores indígenas.</li>
-                            <li>Produção de materiais informativos de saúde bilíngues/multilíngues e audiovisuais.</li>
-                            <li>Realização de workshops sobre sensibilidade cultural e combate à discriminação.</li>
-                        </ul>
-                    </div>
-                    <div class="border border-green-200 rounded-lg p-4">
-                        <div class="flex justify-between items-center">
-                            <h4 class="text-lg font-bold text-green-800">Eixo 2: Valorização de Saberes</h4>
-                            <p class="text-xl font-semibold text-green-900">R$ 300.000,00</p>
-                        </div>
-                        <ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
-                            <li>Apoio à formação de pesquisadores indígenas para inventariar saberes medicinais.</li>
-                            <li>Organização de oficinas intergeracionais para transmissão de conhecimentos de cura.</li>
-                            <li>Promoção do diálogo e intercâmbio entre pajés/curadores e profissionais de saúde.</li>
-                            <li>Elaboração de formas de registro e sistematização de saberes tradicionais.</li>
-                            <li>Discussão sobre a integração da medicina tradicional e biomedicina em planos de cuidado.</li>
-                        </ul>
-                    </div>
-                    <div class="border border-yellow-300 rounded-lg p-4">
-                        <div class="flex justify-between items-center">
-                            <h4 class="text-lg font-bold text-yellow-800">Eixo 3: Articulação e Governança</h4>
-                            <p class="text-xl font-semibold text-yellow-900">R$ 160.000,00</p>
-                        </div>
-                         <ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
-                            <li>Estabelecimento e operacionalização do comitê gestor interministerial.</li>
-                            <li>Garantia da realização de consultas formais (seguindo o Protocolo Yanomami e Ye'kwana).</li>
-                            <li>Apoio ao fortalecimento institucional das associações indígenas (gestão, comunicação).</li>
-                        </ul>
-                    </div>
+                    <div class="border border-blue-200 rounded-lg p-4"><div class="flex justify-between items-center"><h4 class="text-lg font-bold text-blue-800">Eixo 1: Capacitação e Formação</h4><p class="text-xl font-semibold text-blue-900">R$ 525.000,00</p></div><ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1"><li>Desenvolvimento de currículos e materiais didáticos interculturais.</li><li>Oferta de cursos intensivos de línguas Yanomami para profissionais de saúde.</li><li>Criação de programa para formação de intérpretes/tradutores indígenas.</li><li>Produção de materiais informativos de saúde bilíngues/multilíngues e audiovisuais.</li><li>Realização de workshops sobre sensibilidade cultural e combate à discriminação.</li></ul></div>
+                    <div class="border border-green-200 rounded-lg p-4"><div class="flex justify-between items-center"><h4 class="text-lg font-bold text-green-800">Eixo 2: Valorização de Saberes</h4><p class="text-xl font-semibold text-green-900">R$ 300.000,00</p></div><ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1"><li>Apoio à formação de pesquisadores indígenas para inventariar saberes medicinais.</li><li>Organização de oficinas intergeracionais para transmissão de conhecimentos de cura.</li><li>Promoção do diálogo e intercâmbio entre pajés/curadores e profissionais de saúde.</li><li>Elaboração de formas de registro e sistematização de saberes tradicionais.</li><li>Discussão sobre a integração da medicina tradicional e biomedicina em planos de cuidado.</li></ul></div>
+                    <div class="border border-yellow-300 rounded-lg p-4"><div class="flex justify-between items-center"><h4 class="text-lg font-bold text-yellow-800">Eixo 3: Articulação e Governança</h4><p class="text-xl font-semibold text-yellow-900">R$ 160.000,00</p></div><ul class="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1"><li>Estabelecimento e operacionalização do comitê gestor interministerial.</li><li>Garantia da realização de consultas formais (seguindo o Protocolo Yanomami e Ye'kwana).</li><li>Apoio ao fortalecimento institucional das associações indígenas (gestão, comunicação).</li></ul></div>
                 </div>
                  <p class="text-center text-gray-600 text-sm mt-4">(+ <span class="tooltip-trigger" data-tooltip-text="Valor reservado para cobrir despesas imprevistas, flutuações de preços ou necessidades não detalhadas.">Contingência</span>)</p>
             </div>
 
             <div>
                  <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Monitoramento</h3>
-                <p class="text-lg leading-relaxed mb-4">
-                    O acompanhamento será contínuo e participativo para assegurar a efetividade das ações e o respeito ao protagonismo indígena. Os principais métodos incluem:
-                </p>
+                <p class="text-lg leading-relaxed mb-4">O acompanhamento será contínuo e participativo para assegurar a efetividade das ações e o respeito ao protagonismo indígena. Os principais métodos incluem:</p>
                 <ul class="list-disc list-inside space-y-2 text-gray-700">
                     <li><span class="font-semibold">Acompanhamento Periódico:</span> Reuniões regulares do <span class="tooltip-trigger" data-tooltip-text="Grupo com representantes de vários ministérios e das comunidades indígenas para gerir o plano.">comitê gestor</span> para discutir progressos e desafios.</li>
                     <li><span class="font-semibold">Uso de Indicadores:</span> Métricas <span class="tooltip-trigger" data-tooltip-text="Dados numéricos, como nº de profissionais capacitados.">quantitativas</span> e <span class="tooltip-trigger" data-tooltip-text="Avaliações de percepção, como a satisfação da comunidade com o atendimento.">qualitativas</span> para medir o alcance dos objetivos.</li>
@@ -455,59 +392,84 @@
             const tooltipElement = document.getElementById('tooltip');
             if (tooltipElement) {
                 tooltipTriggers.forEach(trigger => {
+                    let timeout;
                     trigger.addEventListener('mouseenter', function (event) {
+                        clearTimeout(timeout);
                         tooltipElement.innerHTML = this.dataset.tooltipText;
-                        tooltipElement.style.left = `${event.pageX}px`;
-                        tooltipElement.style.top = `${event.pageY + 20}px`;
+                        
+                        const triggerRect = trigger.getBoundingClientRect();
+                        
+                        tooltipElement.style.left = `${window.scrollX + triggerRect.left + triggerRect.width / 2}px`;
+                        tooltipElement.style.top = `${window.scrollY + triggerRect.bottom + 10}px`;
+                        
                         tooltipElement.classList.remove('hidden');
-                        const tooltipRect = tooltipElement.getBoundingClientRect();
-                        if (tooltipRect.right > window.innerWidth) {
-                           tooltipElement.style.left = `${window.innerWidth - tooltipRect.width - 20}px`;
-                        }
-                        if (tooltipRect.left < 0) {
-                            tooltipElement.style.left = '20px';
-                        }
-                        tooltipElement.style.opacity = 1;
-                        tooltipElement.style.transform = 'translateY(0)';
+
+                        // Adjust position after rendering
+                        requestAnimationFrame(() => {
+                           const tooltipRect = tooltipElement.getBoundingClientRect();
+                           tooltipElement.style.transform = 'translateX(-50%)';
+                           if (tooltipRect.right > window.innerWidth) {
+                               tooltipElement.style.left = `${window.innerWidth - tooltipRect.width/2 - 10}px`;
+                           }
+                           if (tooltipRect.left < 0) {
+                               tooltipElement.style.left = `${tooltipRect.width/2 + 10}px`;
+                           }
+                           tooltipElement.style.opacity = 1;
+                           tooltipElement.style.transform = 'translateY(0) translateX(-50%)';
+                        });
                     });
+
                     trigger.addEventListener('mouseleave', function () {
-                        tooltipElement.style.opacity = 0;
-                        tooltipElement.style.transform = 'translateY(10px)';
-                        setTimeout(() => {
-                            if (tooltipElement.style.opacity === '0') {
-                                 tooltipElement.classList.add('hidden');
-                            }
-                        }, 200);
+                        timeout = setTimeout(() => {
+                            tooltipElement.style.opacity = 0;
+                            tooltipElement.style.transform = 'translateY(10px) translateX(-50%)';
+                             setTimeout(() => {
+                                 if (tooltipElement.style.opacity === '0') {
+                                      tooltipElement.classList.add('hidden');
+                                 }
+                             }, 200);
+                        }, 100);
                     });
-                    trigger.addEventListener('mousemove', function(event) {
-                        let x = event.pageX;
-                        let y = event.pageY + 20;
-                        tooltipElement.style.left = `${x}px`;
-                        tooltipElement.style.top = `${y}px`;
-                        const tooltipRect = tooltipElement.getBoundingClientRect();
-                        if (tooltipRect.right > window.innerWidth) {
-                           tooltipElement.style.left = `${window.innerWidth - tooltipRect.width - 20}px`;
-                        }
-                        if (tooltipRect.left < 0) {
-                            tooltipElement.style.left = '20px';
-                        }
-                    });
+
+                     tooltipElement.addEventListener('mouseenter', () => clearTimeout(timeout));
+                     tooltipElement.addEventListener('mouseleave', () => {
+                         tooltipElement.style.opacity = 0;
+                         tooltipElement.style.transform = 'translateY(10px) translateX(-50%)';
+                          setTimeout(() => {
+                              if (tooltipElement.style.opacity === '0') {
+                                   tooltipElement.classList.add('hidden');
+                              }
+                          }, 200);
+                     });
                 });
             }
 
-            // Accordion functionality for Stakeholders
-            const stakeholderCards = document.querySelectorAll('.stakeholder-card');
-            stakeholderCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    // Close other open cards
-                    stakeholderCards.forEach(otherCard => {
-                        if (otherCard !== this && otherCard.classList.contains('expanded')) {
-                            otherCard.classList.remove('expanded');
-                        }
-                    });
-                    // Toggle the clicked card
-                    this.classList.toggle('expanded');
-                });
+            // Network Diagram Lines
+            const centralNode = document.querySelector('.node-central');
+            const peripheralNodes = document.querySelectorAll('#nodes .node-peripheral');
+            const linesContainer = document.getElementById('lines');
+
+            const centralRect = centralNode.getBoundingClientRect();
+            const containerRect = centralNode.parentElement.getBoundingClientRect();
+
+            const centralX = centralRect.left + centralRect.width / 2 - containerRect.left;
+            const centralY = centralRect.top + centralRect.height / 2 - containerRect.top;
+
+            peripheralNodes.forEach(node => {
+                const nodeRect = node.getBoundingClientRect();
+                const nodeX = nodeRect.left + nodeRect.width / 2 - containerRect.left;
+                const nodeY = nodeRect.top + nodeRect.height / 2 - containerRect.top;
+
+                const angle = Math.atan2(nodeY - centralY, nodeX - centralX) * 180 / Math.PI;
+                const distance = Math.sqrt(Math.pow(nodeX - centralX, 2) + Math.pow(nodeY - centralY, 2));
+
+                const line = document.createElement('div');
+                line.classList.add('network-line');
+                line.style.width = `${distance}px`;
+                line.style.left = `${centralX}px`;
+                line.style.top = `${centralY}px`;
+                line.style.transform = `rotate(${angle}deg)`;
+                linesContainer.appendChild(line);
             });
         });
     </script>
